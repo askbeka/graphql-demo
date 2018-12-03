@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "forever": "^0.15.3",
+    "graphql-tag": "^2.10.0",
     "graphql-yoga": "^1.16.7"
   },
   "scripts": {
