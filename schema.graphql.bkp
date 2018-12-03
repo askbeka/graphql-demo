@@ -1,0 +1,26 @@
+type Query {
+  accounts: [Account!]!
+  transactions: [Transaction!]!
+}
+
+type Mutation {
+  addAccount(name: String!): Account
+  sendMoney(from: String!, to: String!, amount: Float!): Transaction!
+}
+
+type Subscription {
+  newTransaction(name: String!): Transaction,
+}
+
+type Account {
+  name: String!
+  sent: [Transaction!]!
+  received: [Transaction]!
+}
+
+type Transaction {
+  id: ID!
+  from: Account!
+  to: Account!
+  amount: Float!
+}

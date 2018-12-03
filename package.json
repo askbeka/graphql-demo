@@ -1,0 +1,13 @@
+{
+  "name": "graphql-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "forever": "^0.15.3",
+    "graphql-yoga": "^1.16.7"
+  },
+  "scripts": {
+    "start": "forever -w --watchDirectory ./src ./src/index.js"
+  }
+}

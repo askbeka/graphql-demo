@@ -1,0 +1,44 @@
+const accounts = [
+  { name: 'Beknar' },
+  { name: 'Roman' },
+];
+
+const transactions = [
+  { id: 0, from: 'Roman', to: 'Beknar', amount: 1000 },
+];
+
+module.exports = {
+  Query: {
+    accounts: () => accounts,
+    transactions: () => transactions,
+  },
+  Mutation: {
+    addAccount: (parent, { name }) => {
+      const newAccount = { id: accounts.length, name };
+      accounts.push(newAccount);
+
+      return account;
+    },
+    sendMoney: (parent, { from, to, amount }, { pubsub }) => {
+      const newTransaction = { id: transactions.length, from, to, amount };
+      transactions.push(newTransaction);
+
+      pubsub.publish(to, { newTransaction: newTransaction });
+
+      return newTransaction;
+    },
+  },
+  Subscription: {
+    newTransaction: {
+      subscribe: (parent, { name }, { pubsub }) => pubsub.asyncIterator(name),
+    }
+  },
+  Account: {
+    sent: (parent) => transactions.filter(tr => parent.name === tr.from),
+    received: (parent) => transactions.filter(tr => parent.name === tr.name),
+  },
+  Transaction: {
+    from: (parent) => accounts.find(acc => acc.name === parent.from),
+    to: (parent) => accounts.find(acc => acc.name === parent.to),
+  }
+}
